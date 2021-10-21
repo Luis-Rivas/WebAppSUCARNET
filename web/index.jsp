@@ -5,6 +5,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <%@ include file="fuentedatos.jsp" %>
 
+<c:set var="pageId" value="Index" />
+<c:set var="standalone" value="not" />
+<%@ include file="seguridad.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,8 +27,11 @@
         </script>
     </head>
     <body>
-        <h1>Página Princial (INDEX)</h1><hr>
+        <h1>Página Princial (INDEX)</h1>
+        <%@ include file="header.jsp" %>
+        <hr>
         <br>
+        <c:if test="${sessionScope.nivel eq 1}">
         <form action="insert.jsp">
             <label for="GET-name">ISBN:</label>
             <input id="GET-isbn" type="text" name="isbn"><br>
@@ -37,7 +43,7 @@
             <input id="GET-name" type="text" name="editorial"><br>
             <input type="submit" value="Save">
         </form>
-        
+        </c:if>
         <h2>TABLA DE DATOS</h2><br>
         <sql:query dataSource = "${fuenteDatos}" var = "result">
             SELECT * from libro;
@@ -50,6 +56,7 @@
                 <th>TITULO</th>
                 <th>AUTOR</th>
                 <th>EDITORIAL</th>
+                <c:if test="${sessionScope.nivel eq 2}"><th>Acción</th></c:if>
             </tr>
 
             <c:forEach var = "row" items = "${result.rows}">
@@ -67,9 +74,19 @@
                     </td>
                     <td><c:out value = "${row.autor}"/></td>
                     <td><c:out value = "${row.editorial}"/></td>
+                    <c:if test="${sessionScope.nivel eq 2}">
+                    <td><a href = "delete.jsp?id=${row.id}">Eliminar</a><br>
+                        <a href="frmupdate.jsp?id=${row.id}">Actualizar</a></td>
+                    </c:if>
                 </tr>
             </c:forEach>
         </table>
         <!--<a href="index.jsp" style="font-size:1cm;color:blue;">RETORNAR A INDEX</a>-->
+        
+        <br>
+        <h2>Cambio directo de usuario</h2>
+        <a href="nivel.jsp?n=1">Digitador</a><br>
+        <a href="nivel.jsp?n=2">Mantenimiento</a><br>
+        <a href="nivel.jsp?n=0">Anonimo</a><br>
     </body>
 </html>

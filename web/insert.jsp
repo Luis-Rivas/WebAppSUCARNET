@@ -4,7 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <%@ include file="fuentedatos.jsp" %>
-
+<c:set var="pageId" value="Insert" />
+<c:set var="standalone" value="not" />
+<%@ include file="seguridad.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,8 +15,7 @@
     </head>
     <body>
         <h1>Se agregó el Libro: </h1>
-        <p>Título:<c:out value="${param.titulo}"/>, Autor:<c:out value="${param.autor}"/>
-        </p>
+
         <sql:update dataSource = "${fuenteDatos}" var = "count">
             INSERT INTO libro (isbn,titulo,autor,editorial) VALUES(?,?,?,?)
             <sql:param value="${param.isbn}"/>

@@ -5,6 +5,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <%@ include file="fuentedatos.jsp" %>
 
+<c:set var="pageId" value="Delete" />
+<c:set var="standalone" value="not" />
+<%@ include file="seguridad.jsp" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,10 +17,17 @@
     </head>
     <body>
         <h1>Se ha Eliminando  el REGISTRO: </h1><br>
+        
         <sql:query dataSource = "${fuenteDatos}" var = "result">
             SELECT * from libro where id=?;
             <sql:param value="${param.id}"/>
         </sql:query>
+        <c:if test="${empty param.id}">
+            <c:redirect url="error.jsp">
+                <c:param name="tipo" value="parametro"/>
+                <c:param name="destino" value="index.jsp"/>
+            </c:redirect>
+        </c:if>
         <c:forEach var = "row" items = "${result.rows}">
         <c:set var = "libroId" value = "${param.id}"/>
             <h4>id: <c:out value = "${row.id}"/></h4><br>
