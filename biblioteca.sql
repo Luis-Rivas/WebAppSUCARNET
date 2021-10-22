@@ -30,7 +30,7 @@ CREATE TABLE `libro` (
   `autor` varchar(255) DEFAULT NULL,
   `editorial` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table libro
@@ -38,12 +38,36 @@ CREATE TABLE `libro` (
 
 LOCK TABLES `libro` WRITE;
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
-INSERT INTO `libro` VALUES (1,'2121',' Don Quijote',' Miguel de Cervantes',' Francisco Robles');
-INSERT INTO `libro` VALUES (2,'2122','La Odiesea','Homero','Editorial Santillana');
-INSERT INTO `libro` VALUES (3,'2123','La Iliada','Homero','Editorial ss');
-INSERT INTO `libro` VALUES (8,'2124','Los tres mosqueteros','Alexandre Dumas','Alianza Editorial');
-INSERT INTO `libro` VALUES (9,'2125','El alquimista','Paolo Coelho','Editorial X');
+INSERT INTO `libro` VALUES (11,'2126','El alquimista','Paulo Coelho','The National Era');
+INSERT INTO `libro` VALUES (12,'2121',' Don Quijote',' Miguel de Cervantes',' Francisco Robles');
+INSERT INTO `libro` VALUES (13,'2122','La Iliada','Homero','Hom');
+INSERT INTO `libro` VALUES (14,'2123','    El Principito','Antoine de Saint-Exupéry','Le Siecle');
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
+UNLOCK TABLES;
+
+#
+# Source for table usuario
+#
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(255) NOT NULL DEFAULT '',
+  `nombre` varchar(255) NOT NULL DEFAULT '',
+  `clave` varchar(255) NOT NULL DEFAULT '',
+  `nivel` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Dumping data for table usuario
+#
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Digitador','Luis ','asd123',1);
+INSERT INTO `usuario` VALUES (2,'Mantenimiento','Fatima','asd123',2);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
