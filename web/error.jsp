@@ -7,17 +7,19 @@
         <title>JSP error de contexto</title>
     </head>
     <body>
-        <h1>
+        <div Style="background-color: r">
+        <h1 style="color: red;">
             <c:choose>
                 <c:when test="${param.tipo eq 'contexto'}">
                     Error, intento de ejecutar una jsp, la cual debe estar en un contexto dentro de otra jsp
                 </c:when>
                 <c:when test="${param.tipo eq 'parametro'}">
-                    Error, intento de ejecutar una jsp, sin proporcionar los parametros necesarios
+                    Error, parametros incorrectos.
                 </c:when>                
             </c:choose>
   
         </h1>
+        </div>
                   <script>
                 setTimeout(function () {
                     location.href = "${param.destino}";

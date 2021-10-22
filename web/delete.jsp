@@ -11,12 +11,15 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
+    <%@include file="head.jsp" %>
+    
     <body>
-        <h1>Se ha Eliminando  el REGISTRO: </h1><br>
+        <%@include file="header.jsp"%>
+        <br>
+        <div style="width: 60%;margin-left: 20%;background-color: #B2FF89;text-align: center;">
+            <h3 style="color:green;">Libro eliminado correctamente</h3><br>
+        <a href="index.jsp">Volver al Inicio</a>
+        </div>
         
         <sql:query dataSource = "${fuenteDatos}" var = "result">
             SELECT * from libro where id=?;
@@ -28,19 +31,44 @@
                 <c:param name="destino" value="index.jsp"/>
             </c:redirect>
         </c:if>
+        <c:if test="${empty result.rows}">
+            <c:redirect url="error.jsp">
+                <c:param name="tipo" value="parametro"/>
+                <c:param name="destino" value="index.jsp"/>
+            </c:redirect>
+        </c:if>
         <c:forEach var = "row" items = "${result.rows}">
         <c:set var = "libroId" value = "${param.id}"/>
-            <h4>id: <c:out value = "${row.id}"/></h4><br>
-            <h4>isbn: <c:out value = "${row.isbn}"/></h4><br>
-            <h4>Titulo: <c:out value = "${row.titulo}"/></h4><br>
-            <h4>Autor: <c:out value = "${row.autor}"/></h4><br>
-            <h4>Editorial: <c:out value = "${row.editorial}"/></h4><br>
+        <div style="width: 50%;margin-left: 25%;">
+        <table class="table table-bordered">
+            <thead ><h4>Libro eliminado:</h4></thead>
+            <tr>
+                <th>ID:</th>
+                <th><c:out value = "${row.id}"/></th>
+            </tr>
+            <tr>
+                <th>ISBN:</th>
+                <th><c:out value = "${row.isbn}"/></th>
+            </tr>
+            <tr>
+                <th>TITULO:</th>
+                <th><c:out value = "${row.titulo}"/></th>
+            </tr>
+            <tr>
+                <th>AUTOR:</th>
+                <th><c:out value = "${row.autor}"/></th>
+            </tr>
+            <tr>
+                <th>EDITORIAL:</th>
+                <th><c:out value = "${row.editorial}"/></th>
+            </tr>
+        </table>
+            </div>
             </c:forEach>
         <sql:update dataSource = "${fuenteDatos}" var = "count">
             DELETE from libro WHERE  id=?
             <sql:param value = "${libroId}" />
         </sql:update>
             
-        <a href="index.jsp">Volver al Inicio</a>
     </body>
 </html>

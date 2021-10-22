@@ -8,32 +8,42 @@
 <%@ include file="seguridad.jsp" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        
-    </head>
+    <%@ include file="head.jsp" %>
     <body>
-        <h1>Página Princial (INDEX)</h1><hr>
+        <%@ include file="header.jsp" %>
         <br>
         <sql:query dataSource="${fuenteDatos}" var="result">
             SELECT * FROM LIBRO WHERE id=?
             <sql:param value="${param.id}"/>
         </sql:query>
             <c:forEach var = "row" items = "${result.rows}">
-        <form action="update.jsp">
-            <label>id:</label>
-            <input id="GET-isbn" type="text" name="id" value=" <c:out value = "${row.id}"/>" readonly><br>
-            <label for="GET-name">ISBN:</label>
-            <input id="GET-isbn" type="text" name="isbn" value=" <c:out value = "${row.isbn}"/>"><br>
-            <label for="GET-name">TITULO:</label>
-            <input id="GET-name" type="text" name="titulo" value=" <c:out value = "${row.titulo}"/>"><br>
-            <label for="GET-name">AUTOR:</label>
-            <input id="GET-name" type="text" name="autor" value=" <c:out value = "${row.autor}"/>"><br>
-            <label for="GET-name">EDITORIAL:</label>
-            <input id="GET-name" type="text" name="editorial" value=" <c:out value = "${row.editorial}"/>"><br>
-            <input type="submit" value="Actualizar">
-        </form>
+            <div style="width:40%; border:solid; margin-left:30%; background-color:wheat; ">
+            <h2 style="text-align: center;">Actualizando el Libro: </h2>
+            <form class="px-4 py-3" action="./update.jsp" style="margin:5%;">
+                <div class="form-group">
+                <label for="text">ID:</label>
+                <input type="text" class="form-control" id="isbn" placeholder="" name="id" value=" <c:out value = "${row.id}"/>" readonly>
+              </div>
+              <div class="form-group">
+                <label for="text">ISBN:</label>
+                <input type="text" class="form-control" id="isbn" placeholder="" name="isbn" value=" <c:out value = "${row.isbn}"/>">
+              </div>
+              <div class="form-group">
+                <label for="text">TITULO:</label>
+                <input type="text" class="form-control" id="titulo" placeholder="Ingrese el titulo del libro" name="titulo" value=" <c:out value = "${row.titulo}"/>">
+              </div>
+              <div class="form-group">
+                <label for="pwd">AUTOR:</label>
+                <input type="text" class="form-control" id="autor" placeholder="Ingrese el autor del libro" name="autor" value=" <c:out value = "${row.autor}"/>">
+              </div>
+                <div class="form-group">
+                <label for="pwd">EDITORIAL:</label>
+                <input type="text" class="form-control" id="editorial" placeholder="Ingrese la editorial del libro" name="editorial" value=" <c:out value = "${row.editorial}"/>">
+                </div>
+              <a href="index.jsp" class="btn" style="background-color:#814747; color:wheat;">cancelar</a>
+              <button type="submit" class="btn" style="background-color:#814747; color:wheat;">Actualizar</button>
+            </form>
+        </div>
             </c:forEach>
     </body>
 </html>
